@@ -19,7 +19,7 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     },
     ".MuiModalDialog-root": {
         boxShadow: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
-        width: "58%",
+        width: "30%",
         borderRadius: '0',
         overflow: 'auto',
         zIndex: 9
@@ -37,7 +37,7 @@ const AddSingleDevice = ({ open, setOpen }) => {
         if (reason === "clickaway") {
             return;
         }
-        setToastMessage({ bool: false, message: "", status: toastMessage.status });
+        setToastMessage({ bool: false, message: toastMessage.message, status: toastMessage.status });
     };
 
     const initialValue = {
@@ -137,7 +137,7 @@ const AddSingleDevice = ({ open, setOpen }) => {
                                 <Grid container spacing={2} >
                                     {
                                         formFields.map((el, i) => (
-                                            <Grid key={i} item="true" xs={12} sm={6} md={3} >
+                                            <Grid key={i} item="true" xs={12} sm={6} md={6} >
                                                 <MaterialInput
                                                     type={el.type}
                                                     label={el.label}
@@ -147,9 +147,12 @@ const AddSingleDevice = ({ open, setOpen }) => {
                                         ))
                                     }
                                 </Grid>
-                                <Button loading={isLoading} type="submit" size="sm" color="primary" sx={{ borderRadius: '0' }} >
+                                <div style={{display:"flex",justifyContent:'center'}}> 
+                                <Button loading={isLoading}  type="submit" size="sm" color="primary" sx={{ borderRadius: '0',marginTop:'10px' }} >
                                     Submit
                                 </Button>
+                                </div>
+                                
                             </Form>
                         )
                     }}

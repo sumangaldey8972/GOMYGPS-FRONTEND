@@ -3,9 +3,9 @@ import { Box, Button, CircularProgress, Typography } from '@mui/joy'
 import CustomeBreadcrums from '../../common/Breadcrumbs/Breadcrumbs';
 import { mainContentStyle } from '../../PagesStyle/maincontent.style';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import SearchAndFilter from '../../Components/MasterComponents/SearchAndFilter/SearchAndFilter';
-import ViewManufactureTable from '../../Components/MasterComponents/ViewManufactureList/ViewManufactureTable';
-import ViewManufactureList from '../../Components/MasterComponents/ViewManufactureList/ViewManufactureList';
+import SearchAndFilter from '../../Components/DeviceComponents/SearchAndFilter/SearchAndFilter';
+import ViewDeviceTable from '../../Components/DeviceComponents/ViewDeviceList/ViewDeviceTable';
+import ViewDeviceList from '../../Components/DeviceComponents/ViewDeviceList/ViewDeviceList';
 import TablePagination from '../../common/Pagination/TablePagination';
 import ListPagination from '../../common/Pagination/ListPagination';
 import { useGetDeviceList } from '../../hooks/useDevice';
@@ -35,7 +35,7 @@ const DevicePage = () => {
     }
 
     const { islLoading, data } = useGetDeviceList(page, rowsPerPage, debounceSearch)
-    console.log(data)
+    console.log("*****",data)
     return (
         <React.Fragment>
             <Box
@@ -64,7 +64,7 @@ const DevicePage = () => {
                 {
                     islLoading ? <CircularProgress thickness={3} sx={{ height: '10rem', width: '10rem', fontSize: '9rem', m: 'auto' }} /> :
                         <React.Fragment>
-                            <ViewManufactureTable data={data?.body?.docs} rowsPerPage={rowsPerPage} pageCount={page} />
+                            <ViewDeviceTable data={data?.body?.docs} rowsPerPage={rowsPerPage} pageCount={page} />
                             <TablePagination page={page} count={data?.body?.totalPages} handleChange={handleChange} rowsPerPage={rowsPerPage} handleRowsChange={handleRowsChange} />
                         </React.Fragment>
                 }
@@ -72,7 +72,7 @@ const DevicePage = () => {
                 {
                     islLoading ? <CircularProgress thickness={3} sx={{ height: '10rem', width: '10rem', fontSize: '9rem', m: 'auto' }} /> :
                         <>
-                            <ViewManufactureList data={data?.body?.docs} />
+                            <ViewDeviceList data={data?.body?.docs} />
                             <ListPagination totalPages={data?.body?.totalPages} page={page} setPage={setPage} />
                         </>
                 }
