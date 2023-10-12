@@ -7,7 +7,26 @@ import LogoutIcon from '@mui/icons-material/Logout';
 // import ColorSchemeToggle from './ColorSchemeToggle';
 import { toggleSidebar } from '../../utils/sidebar';
 import { Stack, Typography } from "@mui/joy"
+import { useDestroySession } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+
+
 export default function Navbar() {
+    const navigate = useNavigate()
+
+
+    const { mutate: sessionDestroyer } = useDestroySession()
+
+    const handleDestroySession = () => {
+        sessionDestroyer("", {
+            onSuccess: (response) => {
+                if (response.status) {
+                    navigate('/login')
+                }
+            }
+        })
+    }
+
     return (
         <Sheet
             sx={{
@@ -52,6 +71,8 @@ export default function Navbar() {
                 variant="outlined"
                 color="neutral"
                 size="sm"
+                onClick={handleDestroySession}
+                title="click to logout"
             >
                 <LogoutIcon />
             </IconButton>

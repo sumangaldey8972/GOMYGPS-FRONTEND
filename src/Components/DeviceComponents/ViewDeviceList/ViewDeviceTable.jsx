@@ -52,40 +52,38 @@ const ViewDeviceTable = ({ data, rowsPerPage, pageCount }) => {
                                 <Typography level="body-xs">{getSerialNumber(id, pageCount, rowsPerPage)}</Typography>
                             </td>
                             <td>
-                                <Typography level="body-xs">{el.vltd_number}</Typography>
+                                <Typography level="body-xs">{el.vltd_number ? el.vltd_number : "--"}</Typography>
                             </td>
                             <td>
-                                <Typography level="body-xs">{new Date(el.purchase_date).toLocaleDateString('en-GB')}</Typography>
+                                <Typography level="body-xs">{el.purchase_date ? new Date(el.purchase_date).toLocaleDateString('en-GB') : "--"}</Typography>
+                            </td>
+                            <td>
+                                <Typography level="body-xs">{el.bill_number ? el.bill_number : "--"}</Typography>
+                            </td>
+                            <td>
+                                <Typography level="body-xs">{el.device_name ? el.device_name : "--"}</Typography>
+                            </td>
+                            <td>
+                                <Typography level="body-xs">{el.manufacturer_name ? el.manufacturer_name : "--"}</Typography>
 
                             </td>
                             <td>
-                                <Typography level="body-xs">{el.bill_number}</Typography>
-
-                            </td>
-                            <td>
-                                <Typography level="body-xs">{el.device_name}</Typography>
-                            </td>
-                            <td>
-                                <Typography level="body-xs">{el.manufacturer_name}</Typography>
-
-                            </td>
-                            <td>
-                                <Typography level="body-xs">{el.iccid}</Typography>
+                                <Typography level="body-xs">{el.iccid ? el.iccid : "--"}</Typography>
 
                             </td><td>
-                                <Typography level="body-xs">{el.imei}</Typography>
+                                <Typography level="body-xs">{el.imei ? el.imei : "--"}</Typography>
 
                             </td><td>
-                                <Typography level="body-xs">{el.make}</Typography>
+                                <Typography level="body-xs">{el.make ? el.make : "--"}</Typography>
 
                             </td><td>
-                                <Typography level="body-xs">{el.airtel}</Typography>
+                                <Typography level="body-xs">{el.airtel ? el.airtel : "--"}</Typography>
 
                             </td><td>
-                                <Typography level="body-xs">{el.bsnl}</Typography>
+                                <Typography level="body-xs">{el.bsnl ? el.bsnl : "--"}</Typography>
 
                             </td><td>
-                                <Typography level="body-xs">{new Date(el.expiry_date).toLocaleDateString('en-GB')}</Typography>
+                                <Typography level="body-xs">{el.expiry_date ? new Date(el.expiry_date).toLocaleDateString('en-GB') : "--"}</Typography>
 
                             </td>
                         </tr>

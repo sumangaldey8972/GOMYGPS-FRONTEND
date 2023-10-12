@@ -31,7 +31,7 @@ export const check_session = (response) => async (dispatch) => {
     }
 }
 
-export const logout = (response) => async (dispatch) => {
+export const destroy_session_action = (response) => async (dispatch) => {
     return dispatch({
         type: LOGOUT_SUCCESSFULL,
         status: response.status

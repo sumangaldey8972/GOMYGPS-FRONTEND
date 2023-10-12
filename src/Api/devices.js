@@ -30,3 +30,20 @@ export const create_single_device = async (device_details) => {
         return error.response.data
     }
 }
+
+export const create_nultiple_device = async (device_details) => {
+    try {
+        let response = await axios.post(`${base_url}/device/create_multi_devices`, { devices: device_details }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic TjhYUVRlZTZIQ1hqR2tEam1NQUx6SkFReVFlS2ZHODg6bW1qUUgxYkhHSnJjZzdWYw==',
+            },
+            withCredentials: true
+        })
+        console.log("Res", response)
+        return response.data
+    } catch (error) {
+        console.log("error", error)
+        return error.response.data
+    }
+}

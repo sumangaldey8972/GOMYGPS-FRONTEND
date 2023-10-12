@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { create_single_device, get_device_list } from "../Api/devices"
+import { create_nultiple_device, create_single_device, get_device_list } from "../Api/devices"
 
 
 export const useGetDeviceList = (page, rowsPerPage, debounceSearch) => {
@@ -9,6 +9,17 @@ export const useGetDeviceList = (page, rowsPerPage, debounceSearch) => {
 export const useCreateDevice = () => {
     const queryClient = useQueryClient()
     return useMutation(create_single_device, {
+        onSuccess: (response) => {
+            if (response.status) {
+                queryClient.invalidateQueries('device-list')
+            }
+        }
+    })
+}
+
+export const useCreateMultipleDevice = () => {
+    const queryClient = useQueryClient()
+    return useMutation(create_nultiple_device, {
         onSuccess: (response) => {
             if (response.status) {
                 queryClient.invalidateQueries('device-list')

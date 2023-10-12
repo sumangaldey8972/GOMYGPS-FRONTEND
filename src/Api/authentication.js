@@ -20,3 +20,33 @@ export const login = async (creds) => {
         return error.response.data
     }
 }
+
+export const check_session = async () => {
+    try {
+        const response = await axios.get(`${base_url}/session/check_session`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic TjhYUVRlZTZIQ1hqR2tEam1NQUx6SkFReVFlS2ZHODg6bW1qUUgxYkhHSnJjZzdWYw==',
+            },
+            withCredentials: true
+        })
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+export const destroy_session = async () => {
+    try {
+        let response = await axios.delete(`${base_url}/session/destroy_session`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic TjhYUVRlZTZIQ1hqR2tEam1NQUx6SkFReVFlS2ZHODg6bW1qUUgxYkhHSnJjZzdWYw==',
+            },
+            withCredentials: true
+        })
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}

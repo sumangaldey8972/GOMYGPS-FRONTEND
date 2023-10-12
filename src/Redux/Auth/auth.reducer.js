@@ -20,6 +20,7 @@ export const auth_reducer = (state = initial_state, { type, payload }) => {
             }
         }
         case CHECK_SESSION: {
+            console.log(payload)
             return {
                 ...state,
                 logged_in_user_details: payload,

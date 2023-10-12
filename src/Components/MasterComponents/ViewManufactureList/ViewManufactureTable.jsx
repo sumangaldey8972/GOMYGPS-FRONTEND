@@ -45,18 +45,18 @@ const ViewManufactureTable = ({ data, rowsPerPage, pageCount }) => {
                                 <Typography level="body-xs">{getSerialNumber(id, pageCount, rowsPerPage)}</Typography>
                             </td>
                             <td>
-                                <Typography level="body-xs">{el.manufacturer_name}</Typography>
+                                <Typography level="body-xs">{el.manufacturer_name ? el.manufacturer_name : "--"}</Typography>
                             </td>
                             <td>
-                                <Typography level="body-xs">{el.manufacturer_gst}</Typography>
+                                <Typography level="body-xs">{el.manufacturer_gst ? el.manufacturer_gst : "--"}</Typography>
 
                             </td>
                             <td>
-                                <Typography level="body-xs">{el.opening_stock}</Typography>
+                                <Typography level="body-xs">{el.opening_stock ? el.opening_stock : "--"}</Typography>
                             </td>
                             <td>
                                 {/* <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}> */}
-                                <Typography level="body-xs">{el.manufacturer_address}</Typography>
+                                <Typography level="body-xs">{el.manufacturer_address ? el.manufacturer_address : "--"}</Typography>
 
                                 {/* </Box> */}
                             </td>

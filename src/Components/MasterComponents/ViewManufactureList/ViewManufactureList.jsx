@@ -21,16 +21,16 @@ const ViewManufactureList = ({ data }) => {
                     >
                         <ListItemContent sx={{ display: 'flex', gap: 2, alignItems: 'start' }}>
                             <ListItemDecorator>
-                                <Avatar size="sm">{el.manufacturer_name.split('')[0]}</Avatar>
+                                <Avatar size="sm">{el.manufacturer_name ? el.manufacturer_name.split('')[0] : "--"}</Avatar>
                             </ListItemDecorator>
                             <div>
                                 <Typography fontWeight={600} gutterBottom>
-                                    Manufacturer Name : {el.manufacturer_name}
+                                    Manufacturer Name : {el.manufacturer_name ? el.manufacturer_name : "--"}
                                 </Typography>
                                 <Typography level="body-xs" gutterBottom>
-                                    Gst No : {el.manufacturer_gst}
+                                    Gst No : {el.manufacturer_gst ? el.manufacturer_gst : "--"}
                                 </Typography>
-                                <Typography level="body-xs">Opening Stock : {el.opening_stock} </Typography>
+                                <Typography level="body-xs">Opening Stock : {el.opening_stock ? el.opening_stock : "--"} </Typography>
                                 <Box
                                     sx={{
                                         display: 'flex',
@@ -40,7 +40,7 @@ const ViewManufactureList = ({ data }) => {
                                         mb: 1,
                                     }}
                                 >
-                                    <Typography level="body-xs"> Address : {el.manufacturer_address} </Typography>
+                                    <Typography level="body-xs"> Address : {el.manufacturer_address ? el.manufacturer_address : "--"} </Typography>
                                     <Typography level="body-xs"></Typography>
                                     <Typography level="body-xs"></Typography>
                                 </Box>

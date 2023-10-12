@@ -10,6 +10,7 @@ import TablePagination from '../../common/Pagination/TablePagination';
 import ListPagination from '../../common/Pagination/ListPagination';
 import { useGetDeviceList } from '../../hooks/useDevice';
 import AddSingleDevice from '../../Components/DeviceComponents/CreateDevices/CreateSingleDevice';
+import CreateMultipleDevices from '../../Components/DeviceComponents/CreateDevices/CreateMultipleDevices';
 
 const DevicePage = () => {
     const [open, setOpen] = useState(false)
@@ -35,7 +36,6 @@ const DevicePage = () => {
     }
 
     const { islLoading, data } = useGetDeviceList(page, rowsPerPage, debounceSearch)
-    console.log("*****",data)
     return (
         <React.Fragment>
             <Box
@@ -48,16 +48,26 @@ const DevicePage = () => {
                     sx={mainContentStyle.secondcontent}
                 >
                     <Typography level="h2">Devices</Typography>
-                    <Button
-                        color="primary"
-                        startDecorator={<AddCircleOutlineIcon />}
-                        size="sm"
-                        title='Create Single Device'
-                        onClick={() => setOpen(true)}
-                    >
-                        New Device
-                    </Button>
-                    <AddSingleDevice open={open} setOpen={setOpen} />
+                    <Box sx={{
+                        display: 'flex',
+                        gap: 1,
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        alignItems: { xs: 'column', sm: 'center' },
+                        flexWrap: 'wrap',
+                        justifyContent: 'space-between',
+                    }} >
+                        <CreateMultipleDevices />
+                        <Button
+                            color="primary"
+                            startDecorator={<AddCircleOutlineIcon />}
+                            size="sm"
+                            title='Create Single Device'
+                            onClick={() => setOpen(true)}
+                        >
+                            New Device
+                        </Button>
+                        <AddSingleDevice open={open} setOpen={setOpen} />
+                    </Box>
                 </Box>
 
                 <SearchAndFilter search={search} setSearch={setSearch} />

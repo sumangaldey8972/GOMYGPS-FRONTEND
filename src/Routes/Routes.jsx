@@ -6,17 +6,23 @@ import MasterPage from '../Pages/MasterPage/MasterPage';
 import OrdersPage from '../Pages/OrdersPage/OrdersPage';
 import DashboardLayout from '../common/Layout/DashboardLayout';
 import DevicePage from '../Pages/DevicePage/DevicePage';
+import RouteGuard from '../RouteGuard/RouteGuard';
+import LoginRedirect from '../RouteGuard/LoginRedirect';
 
 const Routes = () => {
     const routes = useRoutes([
-        { path: '/login', element: <LoginPage /> },
+        { path: '/', element: <LoginRedirect /> },
+        { path: '/login', element: <LoginRedirect> <LoginPage /> </LoginRedirect> },
         {
-            path: '/', element: <DashboardLayout />, children: [
-                { element: <Navigate to='/manufacture' />, index: true },
-                { path: 'manufacture', element: <MasterPage /> },
-                { path: 'order', element: <OrdersPage /> },
-                { path: 'devices', element: <DevicePage /> }
-            ]
+            path: '/', element:
+                <RouteGuard>
+                    <DashboardLayout />
+                </RouteGuard>, children: [
+                    { element: <Navigate to='/manufacture' />, index: true },
+                    { path: 'manufacture', element: <MasterPage /> },
+                    { path: 'order', element: <OrdersPage /> },
+                    { path: 'devices', element: <DevicePage /> }
+                ]
         },
     ])
 

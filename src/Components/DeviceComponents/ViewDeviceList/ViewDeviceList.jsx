@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Link, List, ListDivider, ListItem, ListItemContent, ListItemDecorator, Typography } from '@mui/joy'
+import { Accordion, AccordionDetails, AccordionGroup, AccordionSummary, Avatar, Box, Chip, Link, List, ListDivider, ListItem, ListItemContent, ListItemDecorator, Typography, accordionClasses } from '@mui/joy'
 import React from 'react'
 
 const ViewDeviceList = ({ data }) => {
@@ -21,39 +21,60 @@ const ViewDeviceList = ({ data }) => {
                     >
                         <ListItemContent sx={{ display: 'flex', gap: 2, alignItems: 'start' }}>
                             <ListItemDecorator>
-                                <Avatar size="sm">{el.device_name.split('')[0]}</Avatar>
+                                <Avatar size="sm">{el.device_name ? el.device_name.split('')[0] : "--"}</Avatar>
                             </ListItemDecorator>
                             <div>
                                 <Typography fontWeight={600} gutterBottom>
-                                    Device Name : {el.device_name}
+                                    Device Name : {el.device_name ? el.device_name : "--"}
                                 </Typography>
                                 <Typography level="body-xs" gutterBottom>
-                                    Purchase Date : {new Date(el.purchase_date).toLocaleDateString('en-GB')}
+                                    Purchase Date : {el.purchase_date ? new Date(el.purchase_date).toLocaleDateString('en-GB') : "--"}
                                 </Typography>
-                                <Typography level="body-xs">Bill No : {el.bill_number} </Typography>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection:"column",
-                                        // alignItems: '',
-                                        // justifyContent: 'center',
-                                        gap: 0.5,
-                                        mb: 1,
-                                    }}
-                                >
-                                    <Typography level="body-xs"> Manufacturer : {el.manufacturer_name} </Typography>
-                                    <Typography level="body-xs"> ICCID : {el.iccid} </Typography>
-                                    <Typography level="body-xs"> IMEI : {el.imei} </Typography>
-                                    <Typography level="body-xs"> Make : {el.make} </Typography>
-                                    <Typography level="body-xs"> Airtel : {el.airtel} </Typography>
-                                    <Typography level="body-xs"> BSNL : {el.bsnl} </Typography>
-                                    <Typography level="body-xs"> Expiry Date : {new Date(el.expiry_date).toLocaleDateString('en-GB')} </Typography>
-                                </Box>
+                                <Typography level="body-xs">Bill No : {el.bill_number ? el.bill_number : "--"} </Typography>
+                                <AccordionGroup sx={{
+                                    maxWidth: 270,
+                                    width: 270,
+                                    [`& .${accordionClasses.root}`]: {
+                                        marginTop: '0.5rem',
+                                        transition: '0.2s ease',
+                                        '& button:not([aria-expanded="true"])': {
+                                            transition: '0.2s ease',
+                                            paddingBottom: '0.625rem',
+                                        },
+                                        '& button:hover': {
+                                            background: 'transparent',
+                                        },
+                                    },
+                                }}>
+                                    <Accordion>
+                                        <AccordionSummary sx={{ fontSize: '.8rem' }} >View More..</AccordionSummary>
+                                        <AccordionDetails>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: "column",
+                                                    // alignItems: '',
+                                                    // justifyContent: 'center',
+                                                    gap: 0.5,
+                                                    mb: 1,
+                                                }}
+                                            >
+                                                <Typography level="body-xs"> Manufacturer : {el.manufacturer_name ? el.manufacturer_name : "--"} </Typography>
+                                                <Typography level="body-xs"> ICCID : {el.iccid ? el.iccid : "--"} </Typography>
+                                                <Typography level="body-xs"> IMEI : {el.imei ? el.imei : "--"} </Typography>
+                                                <Typography level="body-xs"> Make-SIM : {el.make ? el.make : "--"} </Typography>
+                                                <Typography level="body-xs"> Airtel : {el.airtel ? el.airtel : "--"} </Typography>
+                                                <Typography level="body-xs"> BSNL : {el.bsnl ? el.bsnl : "--"} </Typography>
+                                                <Typography level="body-xs"> Expiry Date : {el.expiry_date ? new Date(el.expiry_date).toLocaleDateString('en-GB') : "--"} </Typography>
+                                            </Box>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                </AccordionGroup>
+
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                                     <Link level="body-sm" component="button">
 
                                     </Link>
-                                    {/* <RowMenu /> */}
                                 </Box>
                             </div>
                         </ListItemContent>
