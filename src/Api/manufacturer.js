@@ -23,10 +23,23 @@ export const create_manufacturer = async (details) => {
 
 
 export const get_manufacture_list = async (page, rowsPerPage, debounceSearch) => {
-    console.log(debounceSearch)
-
     try {
         let response = await axios.get(`${base_url}/manufacturer_master/manufacturer_list?page=${Number(page)}&limit=${Number(rowsPerPage)}&search=${debounceSearch}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic TjhYUVRlZTZIQ1hqR2tEam1NQUx6SkFReVFlS2ZHODg6bW1qUUgxYkhHSnJjZzdWYw==',
+            },
+            withCredentials: true
+        })
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+export const manufacture_option = async ({ search, pageParam }) => {
+    try {
+        let response = await axios.get(`${base_url}/manufacturer_master/manufacturer_list?page=${pageParam}&limit=100&search=${search}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic TjhYUVRlZTZIQ1hqR2tEam1NQUx6SkFReVFlS2ZHODg6bW1qUUgxYkhHSnJjZzdWYw==',

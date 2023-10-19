@@ -10,6 +10,10 @@ import ViewManufactureTable from '../../Components/MasterComponents/ViewManufact
 import ViewManufactureList from '../../Components/MasterComponents/ViewManufactureList/ViewManufactureList';
 import TablePagination from '../../common/Pagination/TablePagination';
 import ListPagination from '../../common/Pagination/ListPagination';
+import CreateOrder from '../../Components/OrderComponents/CreateOrder/CreateOrder';
+import ViewOrderTable from '../../Components/OrderComponents/ViewOrders/ViewOrderTable';
+import ViewOrderList from '../../Components/OrderComponents/ViewOrders/ViewOrderList';
+import OrderSearchAndFilter from '../../Components/OrderComponents/OrderSearchAndFilter/OrderSearchAndFilter';
 
 const OrdersPage = () => {
     const [open, setOpen] = useState(false)
@@ -56,14 +60,14 @@ const OrdersPage = () => {
                     >
                         New Order
                     </Button>
-                    <AddManufacture open={open} setOpen={setOpen} />
+                    <CreateOrder open={open} setOpen={setOpen} />
                 </Box>
 
-                <SearchAndFilter search={search} setSearch={setSearch} />
+                <OrderSearchAndFilter search={search} setSearch={setSearch} />
                 {
                     islLoading ? <CircularProgress thickness={3} sx={{ height: '10rem', width: '10rem', fontSize: '9rem', m: 'auto' }} /> :
                         <React.Fragment>
-                            <ViewManufactureTable data={data?.body?.docs} rowsPerPage={rowsPerPage} pageCount={page} />
+                            <ViewOrderTable data={data?.body?.docs} rowsPerPage={rowsPerPage} pageCount={page} />
                             <TablePagination page={page} count={data?.body?.totalPages} handleChange={handleChange} rowsPerPage={rowsPerPage} handleRowsChange={handleRowsChange} />
                         </React.Fragment>
                 }
@@ -71,7 +75,7 @@ const OrdersPage = () => {
                 {
                     islLoading ? <CircularProgress thickness={3} sx={{ height: '10rem', width: '10rem', fontSize: '9rem', m: 'auto' }} /> :
                         <>
-                            <ViewManufactureList data={data?.body?.docs} />
+                            <ViewOrderList data={data?.body?.docs} />
                             <ListPagination totalPages={data?.body?.totalPages} page={page} setPage={setPage} />
                         </>
                 }

@@ -11,6 +11,8 @@ import Typography from '@mui/joy/Typography';
 import { FormHelperText, Grid, ModalClose, styled } from '@mui/joy';
 import Snackbars from '../../../common/SnackBar/SnackBar';
 import { useCreateDevice } from '../../../hooks/useDevice';
+import { useGetManufactureOptions } from '../../../hooks/useManufacture';
+import ManufactureOptionsInfiniteScroll from '../../../common/InfiniteScroll/ManufactureOptionsInfiniteScroll';
 
 const StyledModal = styled(Modal)(({ theme }) => ({
     ".MuiModal-backdrop": {
@@ -68,6 +70,9 @@ const AddSingleDevice = ({ open, setOpen }) => {
         expiry_date: Yup.string().required('Expiry Date is required')
     })
 
+    const [search, setSearch] = React.useState('')
+    const { data: manufacture_option, fetchNextPage: fetchManufactureOptions } = useGetManufactureOptions(search)
+
     const { isLoading, mutate: add_single_device } = useCreateDevice()
 
     const handleCreateSingleDevice = (details) => {
@@ -94,7 +99,7 @@ const AddSingleDevice = ({ open, setOpen }) => {
     const MaterialInput = ({ label, ...props }) => {
         const [field, meta] = useField(props);
         return (<FormControl>
-            <FormLabel sx={{ fontSize: '.9rem' }} >
+            <FormLabel sx={{ fontSize: '.9rem', fontFamily: 'Noto Sans' }} >
                 {label} &nbsp;<span style={{ color: "red" }}>*</span>
             </FormLabel>
             <Input autoComplete="off" {...field} {...props} sx={{ borderRadius: '0' }} />
@@ -138,21 +143,46 @@ const AddSingleDevice = ({ open, setOpen }) => {
                                     {
                                         formFields.map((el, i) => (
                                             <Grid key={i} item="true" xs={12} sm={6} md={6} >
-                                                <MaterialInput
-                                                    type={el.type}
-                                                    label={el.label}
-                                                    placeholder={el.placeholder}
-                                                    name={el.name} />
+                                                {
+                                                    el.name === 'manufacturer_name' ? <ManufactureOptionsInfiniteScroll
+                                                        data={manufacture_option}
+                                                        name={el.name}
+                                                        searchValue={search}
+                                                        setSearch={setSearch}
+                                                        label={el.label}
+                                                        onChange={(value) => {
+                                                            if (value === null) {
+                                                                setFieldValue('manufacturer_name', '');
+                                                                // need a manufacture id to store in the db
+                                                                setSearch('')
+                                                            } else {
+                                                                setFieldValue('manufacturer_name', value?.value);
+                                                                // need a manufacture id to store in the db
+                                                                setSearch('')
+                                                            }
+                                                        }}
+                                                        error={errors.manufacturer_name}
+                                                        touched={touched.manufacturer_name}
+                                                        fetchNextPage={fetchManufactureOptions} />
+
+                                                        :
+
+                                                        <MaterialInput
+                                                            type={el.type}
+                                                            label={el.label}
+                                                            placeholder={el.placeholder}
+                                                            name={el.name} />
+                                                }
                                             </Grid>
                                         ))
                                     }
                                 </Grid>
-                                <div style={{display:"flex",justifyContent:'center'}}> 
-                                <Button loading={isLoading}  type="submit" size="sm" color="primary" sx={{ borderRadius: '0',marginTop:'10px' }} >
-                                    Submit
-                                </Button>
+                                <div style={{ display: "flex", justifyContent: 'center' }}>
+                                    <Button loading={isLoading} type="submit" size="sm" color="primary" sx={{ borderRadius: '0', marginTop: '10px' }} >
+                                        Submit
+                                    </Button>
                                 </div>
-                                
+
                             </Form>
                         )
                     }}
