@@ -66,7 +66,7 @@ const CreateMultipleDevices = () => {
                     header: headerName,
                     range: 1,
                     raw: false,
-                    dateNF: 'dd-mm-yyyy',
+                    dateNF: 'yyyy-mm-dd',
                 });
 
                 const sanitizedData = parsedData.map((row) => {
@@ -75,8 +75,7 @@ const CreateMultipleDevices = () => {
                         const sanitizedKey = header.replace(/\s+/g, '_').toLowerCase();
                         if (sanitizedKey === 'purchase_date' || sanitizedKey === 'exp_date') {
                             if (row[header]) {
-                                let formatted_date = row[header].split('/')[1] + '-' + row[header].split('/')[0] + '-' + row[header].split('/')[2];
-                                sanitizedRow[sanitizedKey] = formatted_date;
+                                sanitizedRow[sanitizedKey] = new Date(row[header]).toISOString();
                             } else {
                                 sanitizedRow[sanitizedKey] = null;
                             }

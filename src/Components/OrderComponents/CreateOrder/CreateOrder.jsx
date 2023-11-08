@@ -15,6 +15,7 @@ import { useCreateManufacture } from '../../../hooks/useManufacture';
 import { ErrorMessage } from 'formik/dist';
 import { useGetDeviceOption } from '../../../hooks/useDevice';
 import DeviceOptionsInfiniteScroll from '../../../common/InfiniteScroll/DeviceOptionsInfiniteScroll';
+import { useCreateOrder } from '../../../hooks/useOrder';
 
 const StyledModal = styled(Modal)(({ theme }) => ({
     ".MuiModal-backdrop": {
@@ -63,9 +64,27 @@ const CreateOrder = ({ open, setOpen }) => {
 
     const [search, setSearch] = React.useState('')
     const { data: device_option, fetchNextPage: fetchDeviceOptions } = useGetDeviceOption(search)
+    const { mutate: createOrder, isLoading } = useCreateOrder()
 
     const handleCreateOrder = (details) => {
-
+        createOrder(details, {
+            onSuccess: (response) => {
+                if (response.status) {
+                    setOpen(false)
+                    setToastMessage({
+                        bool: true,
+                        message: response.message,
+                        status: "success"
+                    })
+                } else {
+                    setToastMessage({
+                        bool: true,
+                        message: response.message,
+                        status: "error"
+                    })
+                }
+            }
+        })
     }
 
     const MaterialInput = ({ label, ...props }) => {
@@ -107,7 +126,7 @@ const CreateOrder = ({ open, setOpen }) => {
                             handleCreateOrder(values)
                             setSubmitting(false)
                         }}
-                    >{({ errors, touched, setFieldValue }) => {
+                    >{({ errors, touched, setFieldValue, values }) => {
                         return (
                             <Form>
                                 <Stack spacing={2}>
@@ -116,6 +135,7 @@ const CreateOrder = ({ open, setOpen }) => {
                                         name="device_name"
                                         searchValue={search}
                                         setSearch={setSearch}
+                                        value={values.device_name}
                                         label="Select Device Name"
                                         onChange={(value) => {
                                             if (value === null) {
@@ -193,7 +213,7 @@ const CreateOrder = ({ open, setOpen }) => {
                                         }
                                     </FormControl>
 
-                                    <Button loading={false} type="submit" size="sm" color="primary" sx={{ borderRadius: '0' }} >
+                                    <Button loading={isLoading} type="submit" size="sm" color="primary" sx={{ borderRadius: '0' }} >
                                         Submit
                                     </Button>
                                 </Stack>

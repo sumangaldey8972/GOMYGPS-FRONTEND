@@ -1,11 +1,10 @@
-import { useMutation, useQueryClient, useQuery } from "react-query/types"
-import CreateOrder from "../Components/OrderComponents/CreateOrder/CreateOrder"
-import { get_order_list } from "../Api/order"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import { create_order, get_order_list } from "../Api/order"
 
 
 export const useCreateOrder = () => {
     const queryClient = useQueryClient()
-    return useMutation(CreateOrder, {
+    return useMutation(create_order, {
         onSuccess: (response) => {
             if (response.status) {
                 queryClient.invalidateQueries('order-list')
@@ -15,6 +14,6 @@ export const useCreateOrder = () => {
 }
 
 
-export const useGetOrderList = () => {
-    return useQuery('order-list', get_order_list)
+export const useGetOrderList = (page, rowsPerPage, debounceSearch) => {
+    return useQuery(['order-list', page, rowsPerPage, debounceSearch], () => get_order_list(page, rowsPerPage, debounceSearch))
 }

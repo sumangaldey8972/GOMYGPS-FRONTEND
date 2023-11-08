@@ -23,7 +23,6 @@ export const useGetManufactureOptions = (search) => {
             let manufacture_option = [];
             data.pages.forEach((eachPage) => {
                 eachPage.body.docs.forEach((e) => {
-                    console.log(e)
                     manufacture_option.push({ label: e.manufacturer_name, value: e.manufacturer_name, id: e._id })
                 })
             })

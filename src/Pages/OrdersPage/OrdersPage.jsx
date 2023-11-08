@@ -14,6 +14,7 @@ import CreateOrder from '../../Components/OrderComponents/CreateOrder/CreateOrde
 import ViewOrderTable from '../../Components/OrderComponents/ViewOrders/ViewOrderTable';
 import ViewOrderList from '../../Components/OrderComponents/ViewOrders/ViewOrderList';
 import OrderSearchAndFilter from '../../Components/OrderComponents/OrderSearchAndFilter/OrderSearchAndFilter';
+import { useCreateOrder, useGetOrderList } from '../../hooks/useOrder';
 
 const OrdersPage = () => {
     const [open, setOpen] = useState(false)
@@ -38,7 +39,8 @@ const OrdersPage = () => {
         setRowsPerPage(value)
     }
 
-    const { islLoading, data } = useGetManufacturList(page, rowsPerPage, debounceSearch)
+    const { islLoading, data } = useGetOrderList(page, rowsPerPage, debounceSearch)
+    console.log(data)
     return (
         <React.Fragment>
             <Box

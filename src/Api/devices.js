@@ -32,6 +32,7 @@ export const create_single_device = async (device_details) => {
 }
 
 export const create_nultiple_device = async (device_details) => {
+    console.log(device_details)
     try {
         let response = await axios.post(`${base_url}/device/create_multi_devices`, { devices: device_details }, {
             headers: {

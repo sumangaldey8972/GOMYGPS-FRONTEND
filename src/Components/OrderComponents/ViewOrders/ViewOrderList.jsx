@@ -21,28 +21,29 @@ const ViewOrderList = ({ data }) => {
                     >
                         <ListItemContent sx={{ display: 'flex', gap: 2, alignItems: 'start' }}>
                             <ListItemDecorator>
-                                <Avatar size="sm">{el.manufacturer_name ? el.manufacturer_name.split('')[0] : "--"}</Avatar>
+                                <Avatar size="sm">{el.device_name ? el.device_name.split('')[0] : "--"}</Avatar>
                             </ListItemDecorator>
                             <div>
                                 <Typography fontWeight={600} gutterBottom>
-                                    Manufacturer Name : {el.manufacturer_name ? el.manufacturer_name : "--"}
+                                    Device : {el.device_name ? el.device_name : "--"}
                                 </Typography>
                                 <Typography level="body-xs" gutterBottom>
-                                    Gst No : {el.manufacturer_gst ? el.manufacturer_gst : "--"}
+                                    Customer Name : {el.customer_name ? el.customer_name : "--"}
                                 </Typography>
-                                <Typography level="body-xs">Opening Stock : {el.opening_stock ? el.opening_stock : "--"} </Typography>
+                                <Typography level="body-xs">Mobile Number : {el.mobile_number ? el.mobile_number : "--"} </Typography>
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
+                                        alignItems: 'start',
+                                        // justifyContent: 'space-between',
+                                        flexDirection: 'column',
                                         gap: 0.5,
                                         mb: 1,
                                     }}
                                 >
-                                    <Typography level="body-xs"> Address : {el.manufacturer_address ? el.manufacturer_address : "--"} </Typography>
-                                    <Typography level="body-xs"></Typography>
-                                    <Typography level="body-xs"></Typography>
+                                    <Typography level="body-xs"> Device Type : {el.device_type ? el.device_type : "--"} </Typography>
+                                    <Typography level="body-xs">RTO Code : {el.rto_code ? el.rto_code : "--"} </Typography>
+                                    <Typography level="body-xs">Validity : {el.expiry_date ? new Date(el.expiry_date).toLocaleDateString('en-GB') : "--"} </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                                     <Link level="body-sm" component="button">
